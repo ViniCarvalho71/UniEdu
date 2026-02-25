@@ -47,7 +47,7 @@ namespace UniEdu.Services
             throw new NotImplementedException();
         }
 
-        public void UpdateStudent(Student student)
+        public void UpdateStudent(StudentDto student)
         {
             throw new NotImplementedException();
         }
