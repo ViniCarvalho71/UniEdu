@@ -14,16 +14,37 @@ namespace UniEdu.Services
             _studentRepository = studentRepository;
         }
 
+        private void ValidateStudent(StudentDto studentDto)
+        {
+            if (studentDto.FirstName == null)
+            {
+                throw new Exception("O primeiro nome não deve ser nulo");
+            }
+
+            if (studentDto.FirstName.Length > 50)
+            {
+                throw new Exception("O primeiro nome não deve ser maior que 50 caracteres");
+            }
+
+        }
+
         public void DeleteStudent(Guid id)
         {
             if (id == null)
             {
                 throw new ArgumentNullException("Passe um id válido");
             }
+            
+            var student = _studentRepository.GetById(id);
+
+            if (student == null)
+            {
+                throw new Exception("Estudante não existe");
+            }
 
             try
-            {
-                _studentRepository.Delete(id);
+            {             
+                _studentRepository.Delete(student);
             }
             catch (Exception ex)
             {

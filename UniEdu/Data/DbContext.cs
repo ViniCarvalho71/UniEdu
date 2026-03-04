@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using UniEdu.Models;
 
 namespace UniEdu.Data
 {
@@ -7,6 +8,12 @@ namespace UniEdu.Data
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
-        public DbSet<Models.Student> Students { get; set; }
+        public DbSet<Student> Students { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Student>()
+                .HasKey(s => s.Id);
+        }
     }
 }

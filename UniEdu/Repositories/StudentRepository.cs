@@ -1,33 +1,42 @@
-﻿using UniEdu.Interfaces.IRepositories;
+﻿using UniEdu.Data;
+using UniEdu.Interfaces.IRepositories;
 using UniEdu.Models;
 
 namespace UniEdu.Repositories
 {
     public class StudentRepository : IStudentRepository
     {
+        private readonly AppDbContext _context;
+        public StudentRepository(AppDbContext context) { 
+            _context = context;
+        }
         public void Create(Student student)
         {
-            throw new NotImplementedException();
+            _context.Students.Add(student);
+            _context.SaveChanges();
         }
 
-        public void Delete(Guid id)
+        public void Delete(Student student)
         {
-            throw new NotImplementedException();
+            _context.Students.Remove(student);
+            _context.SaveChanges();
         }
 
-        public Student Get()
+        public List<Student> Get()
         {
-            throw new NotImplementedException();
+            return _context.Students.ToList();
         }
 
-        public Student Get(Guid id)
+        public Student GetById(Guid Id)
         {
-            throw new NotImplementedException();
+            return _context.Students.FirstOrDefault(u => u.Id == Id);
         }
 
         public void Update(Student student)
         {
-            throw new NotImplementedException();
+            _context.Students.Update(student);
+            _context.SaveChanges();
+
         }
     }
 }
