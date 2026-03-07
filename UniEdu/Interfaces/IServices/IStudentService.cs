@@ -5,10 +5,10 @@ namespace UniEdu.Interfaces.IServices
 {
     public interface IStudentService
     {
-        public Task<IEnumerable<Student>> GetAllStudents();
-        public Task<Student> GetStudentById(Guid id);
-        public void Enroll(StudentDto student);
-        public void UpdateStudent(StudentDto student);
+        public List<Student> GetAllStudents();
+        public Student GetStudentById(Guid id);
+        public void Enroll(StudentDto studentDto);
+        public void UpdateStudent(StudentUpdateDto studentDto);
         public void DeleteStudent(Guid id);
 
     }

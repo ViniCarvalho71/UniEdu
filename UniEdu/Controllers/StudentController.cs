@@ -5,7 +5,8 @@ using UniEdu.Models;
 
 namespace UniEdu.Controllers
 {
-    [Controller]
+    [Route("api/[controller]")]
+    [ApiController]
     public class StudentController : ControllerBase
     {
         private readonly IStudentService _service;
@@ -28,6 +29,20 @@ namespace UniEdu.Controllers
             }
         }
 
+        [HttpPut]
+        public IActionResult Update([FromBody] StudentUpdateDto studentDto)
+        {
+            try
+            {
+                _service.UpdateStudent(studentDto);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpGet]
         public IActionResult Get()
         {
@@ -43,13 +58,27 @@ namespace UniEdu.Controllers
 
         }
 
-        [HttpGet("{id}")]
-        public IActionResult Get(Guid id)
+        [HttpGet("id")]
+        public IActionResult Get([FromQuery]Guid id)
         {
             try
             {
                 var retorno = _service.GetStudentById(id);
                 return Ok(retorno);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete]
+        public IActionResult Delete([FromQuery]Guid id)
+        {
+            try
+            {
+                _service.DeleteStudent(id);
+                return Ok();
             }
             catch (Exception ex)
             {
